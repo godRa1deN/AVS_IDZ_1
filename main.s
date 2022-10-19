@@ -1,23 +1,30 @@
 	.file	"main.c"
-	.intel_syntax noprefix
 	.text
 	.globl	f
 	.type	f, @function
 f:
+.LFB0:
+	.cfi_startproc
 	endbr64
-	push	rbp
-	mov	rbp, rsp
-	mov	DWORD PTR -20[rbp], edi
-	mov	DWORD PTR -4[rbp], 10
-	mov	eax, DWORD PTR -4[rbp]
-	imul	eax, DWORD PTR -20[rbp]
-	imul	eax, DWORD PTR -20[rbp]
-	mov	edx, eax
-	shr	edx, 31
-	add	eax, edx
-	sar	eax
-	pop	rbp
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -20(%rbp)
+	movl	$10, -4(%rbp)
+	movl	-4(%rbp), %eax
+	imull	-20(%rbp), %eax
+	imull	-20(%rbp), %eax
+	movl	%eax, %edx
+	shrl	$31, %edx
+	addl	%edx, %eax
+	sarl	%eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
 	ret
+	.cfi_endproc
+.LFE0:
 	.size	f, .-f
 	.section	.rodata
 .LC0:
@@ -28,182 +35,88 @@ f:
 	.globl	main
 	.type	main, @function
 main:
+.LFB1:
+	.cfi_startproc
 	endbr64
-	push	rbp
-	mov	rbp, rsp
-	push	r15
-	push	r14
-	push	r13
-	push	r12
-	push	rbx
-	sub	rsp, 104
-	mov	rax, rsp
-	mov	rbx, rax
-	lea	rax, -100[rbp]
-	mov	rsi, rax
-	lea	rdi, .LC0[rip]
-	mov	eax, 0
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	leaq	-798720(%rsp), %r11
+.LPSRL0:
+	subq	$4096, %rsp
+	orq	$0, (%rsp)
+	cmpq	%r11, %rsp
+	jne	.LPSRL0
+	subq	$1312, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	leaq	-800032(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
 	call	__isoc99_scanf@PLT
-	mov	eax, DWORD PTR -100[rbp]
-	movsx	rdx, eax
-	sub	rdx, 1
-	mov	QWORD PTR -72[rbp], rdx
-	movsx	rdx, eax
-	mov	QWORD PTR -128[rbp], rdx
-	mov	QWORD PTR -120[rbp], 0
-	movsx	rdx, eax
-	mov	r12, rdx
-	mov	r13d, 0
-	cdqe
-	lea	rdx, 0[0+rax*4]
-	mov	eax, 16
-	sub	rax, 1
-	add	rax, rdx
-	mov	edi, 16
-	mov	edx, 0
-	div	rdi
-	imul	rax, rax, 16
-	mov	rdx, rax
-	and	rdx, -4096
-	mov	rsi, rsp
-	sub	rsi, rdx
-	mov	rdx, rsi
-.L4:
-	cmp	rsp, rdx
-	je	.L5
-	sub	rsp, 4096
-	or	QWORD PTR 4088[rsp], 0
+	movl	$0, -800028(%rbp)
 	jmp	.L4
 .L5:
-	mov	rdx, rax
-	and	edx, 4095
-	sub	rsp, rdx
-	mov	rdx, rax
-	and	edx, 4095
-	test	rdx, rdx
-	je	.L6
-	and	eax, 4095
-	sub	rax, 8
-	add	rax, rsp
-	or	QWORD PTR [rax], 0
-.L6:
-	mov	rax, rsp
-	add	rax, 3
-	shr	rax, 2
-	sal	rax, 2
-	mov	QWORD PTR -80[rbp], rax
-	mov	DWORD PTR -60[rbp], 0
-	jmp	.L7
-.L8:
-	mov	eax, DWORD PTR -60[rbp]
-	cdqe
-	lea	rdx, 0[0+rax*4]
-	mov	rax, QWORD PTR -80[rbp]
-	add	rax, rdx
-	mov	rsi, rax
-	lea	rdi, .LC0[rip]
-	mov	eax, 0
+	leaq	-800016(%rbp), %rax
+	movl	-800028(%rbp), %edx
+	movslq	%edx, %rdx
+	salq	$2, %rdx
+	addq	%rdx, %rax
+	movq	%rax, %rsi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
 	call	__isoc99_scanf@PLT
-	add	DWORD PTR -60[rbp], 1
+	addl	$1, -800028(%rbp)
+.L4:
+	movl	-800032(%rbp), %eax
+	cmpl	%eax, -800028(%rbp)
+	jl	.L5
+	movl	$0, -800024(%rbp)
+	jmp	.L6
 .L7:
-	mov	eax, DWORD PTR -100[rbp]
-	cmp	DWORD PTR -60[rbp], eax
-	jl	.L8
-	mov	eax, DWORD PTR -100[rbp]
-	mov	rdx, rsp
-	mov	r12, rdx
-	movsx	rdx, eax
-	sub	rdx, 1
-	mov	QWORD PTR -88[rbp], rdx
-	movsx	rdx, eax
-	mov	QWORD PTR -144[rbp], rdx
-	mov	QWORD PTR -136[rbp], 0
-	movsx	rdx, eax
-	mov	r14, rdx
-	mov	r15d, 0
-	cdqe
-	lea	rdx, 0[0+rax*4]
-	mov	eax, 16
-	sub	rax, 1
-	add	rax, rdx
-	mov	esi, 16
-	mov	edx, 0
-	div	rsi
-	imul	rax, rax, 16
-	mov	rdx, rax
-	and	rdx, -4096
-	mov	rcx, rsp
-	sub	rcx, rdx
-	mov	rdx, rcx
-.L9:
-	cmp	rsp, rdx
-	je	.L10
-	sub	rsp, 4096
-	or	QWORD PTR 4088[rsp], 0
-	jmp	.L9
-.L10:
-	mov	rdx, rax
-	and	edx, 4095
-	sub	rsp, rdx
-	mov	rdx, rax
-	and	edx, 4095
-	test	rdx, rdx
-	je	.L11
-	and	eax, 4095
-	sub	rax, 8
-	add	rax, rsp
-	or	QWORD PTR [rax], 0
-.L11:
-	mov	rax, rsp
-	add	rax, 3
-	shr	rax, 2
-	sal	rax, 2
-	mov	QWORD PTR -96[rbp], rax
-	mov	DWORD PTR -56[rbp], 0
-	jmp	.L12
-.L13:
-	mov	rax, QWORD PTR -80[rbp]
-	mov	edx, DWORD PTR -56[rbp]
-	movsx	rdx, edx
-	mov	eax, DWORD PTR [rax+rdx*4]
-	mov	edi, eax
+	movl	-800024(%rbp), %eax
+	cltq
+	movl	-800016(%rbp,%rax,4), %eax
+	movl	%eax, %edi
 	call	f
-	mov	rdx, QWORD PTR -96[rbp]
-	mov	ecx, DWORD PTR -56[rbp]
-	movsx	rcx, ecx
-	mov	DWORD PTR [rdx+rcx*4], eax
-	add	DWORD PTR -56[rbp], 1
-.L12:
-	mov	eax, DWORD PTR -100[rbp]
-	cmp	DWORD PTR -56[rbp], eax
-	jl	.L13
-	mov	DWORD PTR -52[rbp], 0
-	jmp	.L14
-.L15:
-	mov	rax, QWORD PTR -96[rbp]
-	mov	edx, DWORD PTR -52[rbp]
-	movsx	rdx, edx
-	mov	eax, DWORD PTR [rax+rdx*4]
-	mov	esi, eax
-	lea	rdi, .LC1[rip]
-	mov	eax, 0
+	movl	-800024(%rbp), %edx
+	movslq	%edx, %rdx
+	movl	%eax, -400016(%rbp,%rdx,4)
+	addl	$1, -800024(%rbp)
+.L6:
+	movl	-800032(%rbp), %eax
+	cmpl	%eax, -800024(%rbp)
+	jl	.L7
+	movl	$0, -800020(%rbp)
+	jmp	.L8
+.L9:
+	movl	-800020(%rbp), %eax
+	cltq
+	movl	-400016(%rbp,%rax,4), %eax
+	movl	%eax, %esi
+	leaq	.LC1(%rip), %rdi
+	movl	$0, %eax
 	call	printf@PLT
-	add	DWORD PTR -52[rbp], 1
-.L14:
-	mov	eax, DWORD PTR -100[rbp]
-	cmp	DWORD PTR -52[rbp], eax
-	jl	.L15
-	mov	rsp, r12
-	mov	rsp, rbx
-	mov	eax, 0
-	lea	rsp, -40[rbp]
-	pop	rbx
-	pop	r12
-	pop	r13
-	pop	r14
-	pop	r15
-	pop	rbp
+	addl	$1, -800020(%rbp)
+.L8:
+	movl	-800032(%rbp), %eax
+	cmpl	%eax, -800020(%rbp)
+	jl	.L9
+	movl	$0, %eax
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L11
+	call	__stack_chk_fail@PLT
+.L11:
+	leave
+	.cfi_def_cfa 7, 8
 	ret
+	.cfi_endproc
+.LFE1:
 	.size	main, .-main
 	.ident	"GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0"
 	.section	.note.GNU-stack,"",@progbits
